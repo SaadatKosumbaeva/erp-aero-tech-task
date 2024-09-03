@@ -1,0 +1,24 @@
+{
+  "name": "erp-aero-tech-task",
+  "version": "1.0.0",
+  "description": "Erp aero technical task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/SaadatKosumbaeva/erp-aero-tech-task.git"
+  },
+  "author": "Kosumbaeva Saadat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SaadatKosumbaeva/erp-aero-tech-task/issues"
+  },
+  "homepage": "https://github.com/SaadatKosumbaeva/erp-aero-tech-task#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  }
+}
