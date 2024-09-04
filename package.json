@@ -2,10 +2,11 @@
   "name": "erp-aero-tech-task",
   "version": "1.0.0",
   "description": "Erp aero technical task",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,9 @@
   },
   "homepage": "https://github.com/SaadatKosumbaeva/erp-aero-tech-task#readme",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "mysql": "^2.18.1",
     "nodemon": "^3.1.4"
   }
 }
