@@ -1,5 +1,7 @@
 import mysql from 'mysql';
-require('dotenv').config();
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const dbConnection =  mysql.createConnection ({
   host: process.env.DB_HOST,
@@ -21,7 +23,7 @@ dbConnection.connect((error) => {
       console.error('Database connection was refused.');
     }
   } else {
-    console.log('Database connected');
+    console.log('Successfully connected to MySQL');
   }
 });
 
