@@ -3,10 +3,15 @@ export const ERRORS = {
   password: 'Password is required',
   userExist: 'User with this email already exists',
   userNotFound: 'User was not found by this email',
-  incorrectPassword: 'Incorrect email or password',
+  accessDenied: 'Access denied',
   refreshTokenRequired: 'Refresh token is required',
   refreshTokenExpired: 'Refresh token is expired',
   incorrectRefreshToken: 'Incorrect refresh token',
+  unauthorized: 'Unauthorized!',
+}
+
+export const MESSAGES = {
+  logoutSuccess: 'Successfully logged out!'
 }
 
 export const SALT_WORK_FACTOR = 10;

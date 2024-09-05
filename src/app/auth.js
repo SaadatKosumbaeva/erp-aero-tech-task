@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import {
+  deleteExistRefreshTokens,
   getPassHash,
   getTokens,
   isDateExpired,
@@ -8,7 +9,7 @@ import {
   queryDatabase,
   validateToken
 } from '../lib/helpers.js';
-import { ERRORS } from '../lib/constants.js';
+import { ENV, ERRORS, MESSAGES } from '../lib/constants.js';
 
 const router = express.Router();
 
@@ -61,7 +62,7 @@ router.post('/signin', [
     }
 
     const isValidPassword = await isPasswordValid(req.body.password, foundUser[0].password);
-    if (!isValidPassword) return res.status(400).json({errors: [ERRORS.incorrectPassword]});
+    if (!isValidPassword) return res.status(403).json({errors: [ERRORS.accessDenied]});
 
     const tokens = await getTokens(foundUser[0].id);
 
@@ -91,7 +92,7 @@ router.post('/signin/new_token', [
       return res.status(400).send({errors: [ERRORS.refreshTokenExpired]});
     }
 
-    const decoded = validateToken(refreshToken[0]['refresh_token']);
+    const decoded = validateToken(refreshToken[0]['refresh_token'], process.env[ENV.JWT_REFRESH_SECRET]);
     if (decoded.hasOwnProperty('errors')) return res.status(400).send({errors: decoded.errors});
 
     const tokens = await getTokens(refreshToken[0]['user_id']);
@@ -99,6 +100,23 @@ router.post('/signin/new_token', [
     return res.status(200).json({data: tokens});
   } catch (e) {
     return next(e);
+  }
+})
+
+router.get('/info', async (req, res, next) => {
+  try {
+    return res.status(200).json({data: {userId: req.user.id}});
+  } catch (e) {
+    next(e);
+  }
+})
+
+router.get('/logout', async (req, res, next) => {
+  try {
+    await deleteExistRefreshTokens(req.user.id);
+    return res.status(200).json({message: MESSAGES.logoutSuccess});
+  } catch (e) {
+    next(e);
   }
 })
 

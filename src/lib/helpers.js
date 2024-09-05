@@ -49,11 +49,11 @@ export function isDateExpired(sec) {
   return new Date(sec * 1000).getTime() < now;
 }
 
-export function validateToken(token) {
+export function validateToken(token, secret) {
   const errors = [];
 
   try {
-    const decoded = jwt.verify(token, process.env[ENV.JWT_REFRESH_SECRET]);
+    const decoded = jwt.verify(token, secret);
     return decoded;
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
